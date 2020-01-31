@@ -17,8 +17,8 @@ class PostType extends Base {
 
 		try {
 			parent::__construct( 'post_type', $config );
-		} catch ( Exception $e ) {
-			throw new Exception( $e );
+		} catch ( \Exception $e ) {
+			throw new \Exception( $e );
 		}
 
 	}

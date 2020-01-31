@@ -17,8 +17,8 @@ class Taxonomy extends Base {
 
 		try {
 			parent::__construct( 'taxonomy', $config );
-		} catch ( Exception $e ) {
-			throw new Exception( $e );
+		} catch ( \Exception $e ) {
+			throw new \Exception( $e );
 		}
 
 	}
