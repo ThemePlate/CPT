@@ -1,7 +1,6 @@
 {
     "name": "themeplate/cpt",
     "description" : "ThemePlate custom post types and taxonomies",
-    "type": "wordpress-dropin",
     "license": "GPL-3.0",
     "authors": [
         {
@@ -10,8 +9,7 @@
         }
     ],
     "require": {
-        "composer/installers": "^1.0",
-        "themeplate/core": "*"
+    	"themeplate/core": "*"
     },
     "autoload": {
         "psr-4": {
