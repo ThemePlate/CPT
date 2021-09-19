@@ -13,7 +13,7 @@ use ThemePlate\Core\Helper\Main;
 
 class Taxonomy extends Base {
 
-	public function __construct( $config ) {
+	public function __construct( array $config ) {
 
 		try {
 			parent::__construct( 'taxonomy', $config );
@@ -24,7 +24,7 @@ class Taxonomy extends Base {
 	}
 
 
-	public function register() {
+	public function register(): void {
 
 		$config   = $this->config;
 		$plural   = $config['plural'];

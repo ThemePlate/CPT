@@ -13,7 +13,7 @@ use ThemePlate\Core\Helper\Main;
 
 class PostType extends Base {
 
-	public function __construct( $config ) {
+	public function __construct( array $config ) {
 
 		try {
 			parent::__construct( 'post_type', $config );
@@ -24,7 +24,7 @@ class PostType extends Base {
 	}
 
 
-	public function register() {
+	public function register(): void {
 
 		$config   = $this->config;
 		$plural   = $config['plural'];
@@ -82,7 +82,7 @@ class PostType extends Base {
 	}
 
 
-	public function custom_messages( $messages ) {
+	public function custom_messages( array $messages ): array {
 
 		global $post_type_object, $post;
 
@@ -142,7 +142,7 @@ class PostType extends Base {
 	}
 
 
-	public function bulk_custom_messages( $messages, $counts ) {
+	public function bulk_custom_messages( array $messages, array $counts ): array {
 
 		$name     = $this->config['name'];
 		$singular = strtolower( $this->config['singular'] );

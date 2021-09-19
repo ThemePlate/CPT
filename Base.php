@@ -13,10 +13,10 @@ use ThemePlate\Core\Helper\Main;
 
 abstract class Base {
 
-	protected $config;
+	protected array $config;
 
 
-	public function __construct( $kind, $config ) {
+	public function __construct( string $kind, array $config ) {
 
 		$expected = array(
 			'name',
