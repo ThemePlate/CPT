@@ -9,6 +9,7 @@
 
 namespace ThemePlate\CPT;
 
+use Exception;
 use ThemePlate\Core\Helper\Main;
 
 class PostType extends Base {
@@ -17,8 +18,8 @@ class PostType extends Base {
 
 		try {
 			parent::__construct( 'post_type', $config );
-		} catch ( \Exception $e ) {
-			throw new \Exception( $e );
+		} catch ( Exception $e ) {
+			throw new Exception( $e );
 		}
 
 	}

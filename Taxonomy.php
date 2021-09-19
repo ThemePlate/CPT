@@ -9,6 +9,7 @@
 
 namespace ThemePlate\CPT;
 
+use Exception;
 use ThemePlate\Core\Helper\Main;
 
 class Taxonomy extends Base {
@@ -17,8 +18,8 @@ class Taxonomy extends Base {
 
 		try {
 			parent::__construct( 'taxonomy', $config );
-		} catch ( \Exception $e ) {
-			throw new \Exception( $e );
+		} catch ( Exception $e ) {
+			throw new Exception( $e );
 		}
 
 	}

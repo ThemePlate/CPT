@@ -9,6 +9,7 @@
 
 namespace ThemePlate\CPT;
 
+use Exception;
 use ThemePlate\Core\Helper\Main;
 
 abstract class Base {
@@ -29,7 +30,7 @@ abstract class Base {
 		}
 
 		if ( ! Main::is_complete( $config, $expected ) ) {
-			throw new \Exception();
+			throw new Exception();
 		}
 
 		$defaults     = array(
