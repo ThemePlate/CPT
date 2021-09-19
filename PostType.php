@@ -106,19 +106,19 @@ class PostType extends Base {
 			$preview_post_link_html = sprintf(
 				' <a target="_blank" href="%1$s">%2$s</a>',
 				esc_url( $preview_url ),
-				__( 'Preview ' . $singular )
+				'Preview ' . $singular
 			);
 
 			$scheduled_post_link_html = sprintf(
 				' <a target="_blank" href="%1$s">%2$s</a>',
 				esc_url( $permalink ),
-				__( 'Preview ' . $singular )
+				'Preview ' . $singular
 			);
 
 			$view_post_link_html = sprintf(
 				' <a href="%1$s">%2$s</a>',
 				esc_url( $permalink ),
-				__( 'View ' . $singular )
+				'View ' . $singular
 			);
 		}
 
@@ -126,16 +126,16 @@ class PostType extends Base {
 
 		$messages[ $name ] = array(
 			0  => '', // Unused. Messages start at index 1.
-			1  => __( $singular . ' updated.' ) . $view_post_link_html,
-			2  => __( 'Custom field updated.' ),
-			3  => __( 'Custom field deleted.' ),
-			4  => __( $singular . ' updated.' ),
-			5  => isset( $_GET['revision'] ) ? sprintf( __( $singular . ' restored to revision from %s.' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,  // phpcs:ignore WordPress.Security.NonceVerification
-			6  => __( $singular . ' published.' ) . $view_post_link_html,
-			7  => __( $singular . ' saved.' ),
-			8  => __( $singular . ' submitted.' ) . $preview_post_link_html,
-			9  => sprintf( __( $singular . ' scheduled for: %s.' ), '<strong>' . $scheduled_date . '</strong>' ) . $scheduled_post_link_html,
-			10 => __( $singular . ' draft updated.' ) . $preview_post_link_html,
+			1  => $singular . ' updated.' . $view_post_link_html,
+			2  => 'Custom field updated.',
+			3  => 'Custom field deleted.',
+			4  => $singular . ' updated.',
+			5  => isset( $_GET['revision'] ) ? sprintf( $singular . ' restored to revision from %s.', wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,  // phpcs:ignore WordPress.Security.NonceVerification
+			6  => $singular . ' published.' . $view_post_link_html,
+			7  => $singular . ' saved.',
+			8  => $singular . ' submitted.' . $preview_post_link_html,
+			9  => sprintf( $singular . ' scheduled for: %s.', '<strong>' . $scheduled_date . '</strong>' ) . $scheduled_post_link_html,
+			10 => $singular . ' draft updated.' . $preview_post_link_html,
 		);
 
 		return $messages;
@@ -150,14 +150,21 @@ class PostType extends Base {
 		$plural   = strtolower( $this->config['plural'] );
 
 		$messages[ $name ] = array(
-			'updated'   => _n( '%s ' . $singular . ' updated.', '%s ' . $plural . ' updated.', $counts['updated'] ),
-			'locked'    => _n( '%s ' . $singular . ' not updated, somebody is editing it.', '%s ' . $plural . ' not updated, somebody is editing them.', $counts['locked'] ),
-			'deleted'   => _n( '%s ' . $singular . ' permanently deleted.', '%s ' . $plural . ' permanently deleted.', $counts['deleted'] ),
-			'trashed'   => _n( '%s ' . $singular . ' moved to the Trash.', '%s ' . $plural . ' moved to the Trash.', $counts['trashed'] ),
-			'untrashed' => _n( '%s ' . $singular . ' restored from the Trash.', '%s ' . $plural . ' restored from the Trash.', $counts['untrashed'] ),
+			'updated'   => $this->n( '%s ' . $singular . ' updated.', '%s ' . $plural . ' updated.', $counts['updated'] ),
+			'locked'    => $this->n( '%s ' . $singular . ' not updated, somebody is editing it.', '%s ' . $plural . ' not updated, somebody is editing them.', $counts['locked'] ),
+			'deleted'   => $this->n( '%s ' . $singular . ' permanently deleted.', '%s ' . $plural . ' permanently deleted.', $counts['deleted'] ),
+			'trashed'   => $this->n( '%s ' . $singular . ' moved to the Trash.', '%s ' . $plural . ' moved to the Trash.', $counts['trashed'] ),
+			'untrashed' => $this->n( '%s ' . $singular . ' restored from the Trash.', '%s ' . $plural . ' restored from the Trash.', $counts['untrashed'] ),
 		);
 
 		return $messages;
+
+	}
+
+
+	private function n( string $single, string $plural, int $number ): string {
+
+		return 1 === $number ? $single : $plural;
 
 	}
 
