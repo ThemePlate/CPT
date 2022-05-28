@@ -64,9 +64,26 @@ class PostType extends Base {
 	}
 
 
+	public function associate( string $identifier ): void {
+
+		if ( empty( $this->args['taxonomies'] ) ) {
+			$this->args['taxonomies'] = array();
+		}
+
+		$this->args['taxonomies'][] = $identifier;
+
+	}
+
+
 	public function hook(): void {
 
 		register_post_type( $this->post_type, $this->args );
+
+		if ( ! empty( $this->args['taxonomies'] ) ) {
+			foreach ( $this->args['taxonomies'] as $taxonomy ) {
+				register_taxonomy_for_object_type( $taxonomy, $this->post_type );
+			}
+		}
 
 		add_filter( 'post_updated_messages', array( $this, 'custom_messages' ) );
 		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_custom_messages' ), 10, 2 );

@@ -58,6 +58,13 @@ class Taxonomy extends Base {
 	}
 
 
+	public function associate( string $identifier ): void {
+
+		$this->object_type[] = $identifier;
+
+	}
+
+
 	public function hook(): void {
 
 		register_taxonomy( $this->taxonomy, $this->object_type, $this->args );

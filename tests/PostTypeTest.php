@@ -45,6 +45,18 @@ class PostTypeTest extends WP_UnitTestCase {
 		}
 	}
 
+	public function test_late_taxonomy_association(): void {
+		$type = new PostType( 'test' );
+
+		$type->associate( 'this' );
+		$type->register();
+
+		$type = get_post_type_object( 'test' );
+
+		$this->assertArrayHasKey( 'this', array_fill_keys( $type->taxonomies, '' ) );
+		$this->assertTrue( true );
+	}
+
 	public function for_minimal_register(): array {
 		return array(
 			'with string ending "x"'   => array( 'fox', 'Fox', 'Foxes', 'foxes' ),

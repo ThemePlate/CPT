@@ -36,4 +36,15 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$this->assertTrue( $tax->show_in_rest );
 		$this->assertFalse( $tax->rewrite['with_front'] );
 	}
+
+	public function test_late_post_type_association(): void {
+		$tax = new Taxonomy( 'test' );
+
+		$tax->associate( 'this' );
+		$tax->register();
+
+		$tax = get_taxonomy( 'test' );
+
+		$this->assertArrayHasKey( 'this', array_fill_keys( $tax->object_type, '' ) );
+	}
 }
