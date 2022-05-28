@@ -38,10 +38,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 	}
 
 	public function test_late_post_type_association(): void {
-		$tax = new Taxonomy( 'test' );
-
-		$tax->associate( 'this' );
-		$tax->register();
+		( new Taxonomy( 'test' ) )->associate( 'this' )->register();
 
 		$tax = get_taxonomy( 'test' );
 

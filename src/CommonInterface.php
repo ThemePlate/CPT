@@ -8,9 +8,9 @@ namespace ThemePlate\CPT;
 
 interface CommonInterface {
 
-	public function labels( string $singular, string $plural ): void;
+	public function labels( string $singular, string $plural ): self;
 
-	public function associate( string $identifier ): void;
+	public function associate( string $identifier ): self;
 
 	public function register(): void;
 

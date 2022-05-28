@@ -23,7 +23,7 @@ class PostType extends Base {
 	}
 
 
-	public function labels( string $singular, string $plural ): void {
+	public function labels( string $singular, string $plural ): self {
 
 		$labels = array(
 			'name'                     => $plural,
@@ -61,16 +61,20 @@ class PostType extends Base {
 
 		$this->args['labels'] = array_merge( $this->args['labels'], $labels );
 
+		return $this;
+
 	}
 
 
-	public function associate( string $identifier ): void {
+	public function associate( string $identifier ): self {
 
 		if ( empty( $this->args['taxonomies'] ) ) {
 			$this->args['taxonomies'] = array();
 		}
 
 		$this->args['taxonomies'][] = $identifier;
+
+		return $this;
 
 	}
 

@@ -46,10 +46,7 @@ class PostTypeTest extends WP_UnitTestCase {
 	}
 
 	public function test_late_taxonomy_association(): void {
-		$type = new PostType( 'test' );
-
-		$type->associate( 'this' );
-		$type->register();
+		( new PostType( 'test' ) )->associate( 'this' )->register();
 
 		$type = get_post_type_object( 'test' );
 

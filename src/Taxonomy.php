@@ -25,7 +25,7 @@ class Taxonomy extends Base {
 	}
 
 
-	public function labels( string $singular, string $plural ): void {
+	public function labels( string $singular, string $plural ): self {
 
 		$labels = array(
 			'name'                       => $plural,
@@ -55,12 +55,16 @@ class Taxonomy extends Base {
 
 		$this->args['labels'] = array_merge( $this->args['labels'], $labels );
 
+		return $this;
+
 	}
 
 
-	public function associate( string $identifier ): void {
+	public function associate( string $identifier ): self {
 
 		$this->object_type[] = $identifier;
+
+		return $this;
 
 	}
 
