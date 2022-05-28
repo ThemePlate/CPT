@@ -16,4 +16,6 @@ interface CommonInterface {
 
 	public function hook(): void;
 
+	public function custom_messages( array $messages ): array;
+
 }

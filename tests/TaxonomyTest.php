@@ -58,4 +58,14 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$this->assertSame( $plural, $tax->label );
 		$this->assertSame( $slug, $tax->rewrite['slug'] );
 	}
+
+	public function test_for_messages_filter(): void {
+		$taxonomy = 'test';
+
+		( new Taxonomy( $taxonomy ) )->register();
+
+		$output = apply_filters( 'term_updated_messages', array() );
+
+		$this->assertArrayHasKey( $taxonomy, $output );
+	}
 }

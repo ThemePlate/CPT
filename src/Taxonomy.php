@@ -73,6 +73,28 @@ class Taxonomy extends Base {
 
 		register_taxonomy( $this->taxonomy, $this->object_type, $this->args );
 
+		add_filter( 'term_updated_messages', array( $this, 'custom_messages' ) );
+
+	}
+
+
+	public function custom_messages( array $messages ): array {
+
+		$singular = $this->args['labels']['singular_name'];
+		$plural   = $this->args['labels']['name'];
+
+		$messages[ $this->taxonomy ] = array(
+			0 => '',
+			1 => $singular . ' added.',
+			2 => $singular . ' deleted.',
+			3 => $singular . ' updated.',
+			4 => $singular . ' not added.',
+			5 => $singular . ' not updated.',
+			6 => $plural . ' deleted.',
+		);
+
+		return $messages;
+
 	}
 
 }
