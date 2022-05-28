@@ -21,7 +21,10 @@ class TaxonomyTest extends WP_UnitTestCase {
 			),
 		);
 
-		new Taxonomy( $config );
+		$tax = new Taxonomy( $config['name'], array( $config['type'] ), $config['args'] );
+
+		$tax->labels( $config['singular'], $config['plural'] );
+		$tax->register();
 
 		$this->assertArrayHasKey( $config['name'], get_taxonomies() );
 

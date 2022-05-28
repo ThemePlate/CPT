@@ -23,7 +23,10 @@ class PostTypeTest extends WP_UnitTestCase {
 			),
 		);
 
-		new PostType( $config );
+		$type = new PostType( $config['name'], $config['args'] );
+
+		$type->labels( $config['singular'], $config['plural'] );
+		$type->register();
 
 		$this->assertArrayHasKey( $config['name'], get_post_types() );
 

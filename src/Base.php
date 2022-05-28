@@ -9,44 +9,27 @@
 
 namespace ThemePlate\CPT;
 
-use Exception;
-use ThemePlate\Core\Helper\Main;
+abstract class Base implements CommonInterface {
 
-abstract class Base {
+	protected array $args;
+	protected array $defaults = array(
+		'labels'       => array(),
+		'public'       => true,
+		'show_in_rest' => true,
+		'rewrite'      => array(
+			'with_front' => false,
+		),
+	);
 
-	protected array $config;
 
-
-	public function __construct( string $kind, array $config ) {
-
-		$expected = array(
-			'name',
-			'plural',
-			'singular',
-		);
-
-		if ( 'taxonomy' === $kind ) {
-			$expected[] = 'type';
-		}
-
-		if ( ! Main::is_complete( $config, $expected ) ) {
-			throw new Exception();
-		}
-
-		$defaults     = array(
-			'args' => array(),
-		);
-		$this->config = Main::fool_proof( $defaults, $config );
+	public function register(): void {
 
 		if ( did_action( 'init' ) ) {
-			$this->register();
+			$this->hook();
 		} else {
-			add_action( 'init', array( $this, 'register' ) );
+			add_action( 'init', array( $this, 'hook' ) );
 		}
 
 	}
-
-
-	abstract public function register();
 
 }

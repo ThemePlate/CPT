@@ -9,34 +9,20 @@
 
 namespace ThemePlate\CPT;
 
-use Exception;
-use ThemePlate\Core\Helper\Main;
-
 class PostType extends Base {
 
-	public function __construct( array $config ) {
+	protected string $post_type;
 
-		try {
-			parent::__construct( 'post_type', $config );
-		} catch ( Exception $e ) {
-			throw new Exception( $e );
-		}
+
+	public function __construct( string $post_type, array $args = array() ) {
+
+		$this->post_type = $post_type;
+		$this->args      = array_merge( $this->defaults, $args );
 
 	}
 
 
-	public function register(): void {
-
-		$config   = $this->config;
-		$plural   = $config['plural'];
-		$singular = $config['singular'];
-		$defaults = array(
-			'labels'       => array(),
-			'public'       => true,
-			'show_in_rest' => true,
-			'rewrite'      => array(),
-		);
-		$args     = Main::fool_proof( $defaults, $config['args'] );
+	public function labels( string $singular, string $plural ): void {
 
 		$labels = array(
 			'name'                     => $plural,
@@ -72,10 +58,14 @@ class PostType extends Base {
 			'name_admin_bar'           => $singular,
 		);
 
-		$args['labels']  = Main::fool_proof( $labels, $args['labels'] );
-		$args['rewrite'] = Main::fool_proof( array( 'with_front' => false ), $args['rewrite'] );
+		$this->args['labels'] = array_merge( $this->args['labels'], $labels );
 
-		register_post_type( $config['name'], $args );
+	}
+
+
+	public function hook(): void {
+
+		register_post_type( $this->post_type, $this->args );
 
 		add_filter( 'post_updated_messages', array( $this, 'custom_messages' ) );
 		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_custom_messages' ), 10, 2 );
@@ -87,8 +77,8 @@ class PostType extends Base {
 
 		global $post_type_object, $post;
 
-		$name     = $this->config['name'];
-		$singular = $this->config['singular'];
+		$name     = $this->post_type;
+		$singular = $this->args['labels']['singular_name'];
 
 		$permalink = get_permalink();
 
@@ -145,9 +135,9 @@ class PostType extends Base {
 
 	public function bulk_custom_messages( array $messages, array $counts ): array {
 
-		$name     = $this->config['name'];
-		$singular = strtolower( $this->config['singular'] );
-		$plural   = strtolower( $this->config['plural'] );
+		$name     = $this->post_type;
+		$singular = strtolower( $this->args['labels']['singular_name'] );
+		$plural   = strtolower( $this->args['labels']['name'] );
 
 		$messages[ $name ] = array(
 			'updated'   => $this->n( '%s ' . $singular . ' updated.', '%s ' . $plural . ' updated.', $counts['updated'] ),

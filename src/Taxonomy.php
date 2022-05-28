@@ -9,35 +9,22 @@
 
 namespace ThemePlate\CPT;
 
-use Exception;
-use ThemePlate\Core\Helper\Main;
-
 class Taxonomy extends Base {
 
-	public function __construct( array $config ) {
+	protected string $taxonomy;
+	protected array $object_type;
 
-		try {
-			parent::__construct( 'taxonomy', $config );
-		} catch ( Exception $e ) {
-			throw new Exception( $e );
-		}
+
+	public function __construct( string $taxonomy, array $object_type = array(), array $args = array() ) {
+
+		$this->taxonomy    = $taxonomy;
+		$this->object_type = $object_type;
+		$this->args        = array_merge( $this->defaults, $args );
 
 	}
 
 
-	public function register(): void {
-
-		$config   = $this->config;
-		$plural   = $config['plural'];
-		$singular = $config['singular'];
-		$defaults = array(
-			'labels'       => array(),
-			'public'       => true,
-			'show_in_rest' => true,
-			'rewrite'      => array(),
-		);
-
-		$args = Main::fool_proof( $defaults, $config['args'] );
+	public function labels( string $singular, string $plural ): void {
 
 		$labels = array(
 			'name'                       => $plural,
@@ -65,10 +52,14 @@ class Taxonomy extends Base {
 			'name_admin_bar'             => $singular,
 		);
 
-		$args['labels']  = Main::fool_proof( $labels, $args['labels'] );
-		$args['rewrite'] = Main::fool_proof( array( 'with_front' => false ), $args['rewrite'] );
+		$this->args['labels'] = array_merge( $this->args['labels'], $labels );
 
-		register_taxonomy( $config['name'], $config['type'], $args );
+	}
+
+
+	public function hook(): void {
+
+		register_taxonomy( $this->taxonomy, $this->object_type, $this->args );
 
 	}
 
