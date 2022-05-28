@@ -6,19 +6,40 @@
 use ThemePlate\CPT\PostType;
 use ThemePlate\CPT\Taxonomy;
 
-$args  = array(
-	'supports' => array( 'title', 'editor', 'thumbnail' ),
-	'rewrite'  => array( 'slug' => 'houses' ),
+// One-liner
+( new PostType( 'vehicle' ) )->register();
+( new Taxonomy( 'brand' ) )->register();
+```
+
+### Full customization
+```php
+/** https://developer.wordpress.org/reference/functions/register_post_type/#parameters */
+$args   = array(
+	'supports'   => array( 'title', 'editor', 'thumbnail' ),
+	'taxonomies' => array( 'job' ),
 );
-$house = new PostType( 'house', $args );
+$person = new PostType( 'person', $args );
 
-$house->labels( 'House', 'Houses' );
-$house->register();
+// Custom singular and plural
+$person->labels( 'Person', 'People' );
+$person->register();
 
-( new PostType( 'furniture' ) )->register();
 
-$style = new Taxonomy( 'style', array( 'house', 'furniture' ) );
+/** https://developer.wordpress.org/reference/functions/register_taxonomy/#parameters */
+$args = array(
+	'hierarchical' => true,
+	'default_term' => 'Unknown',
+);
+$job  = new Taxonomy( 'job', array( 'person' ), $args );
 
-$style->labels( 'Style', 'Styles' );
-$style->register();
+// Custom singular and plural
+$job->labels( 'Job Title', 'Job Titles' );
+$job->register();
+```
+
+### Associations
+```php
+( new PostType( 'house' ) )->associate( 'category' )->register();
+( new PostType( 'furniture' ) )->associate( 'category' )->register();
+( new Taxonomy( 'style' ) )->associate( 'house' )->associate( 'furniture' )->register();
 ```

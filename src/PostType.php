@@ -25,6 +25,7 @@ class PostType extends Base {
 
 	public function labels( string $singular, string $plural ): self {
 
+		// https://developer.wordpress.org/reference/functions/get_post_type_labels/
 		$labels = array(
 			'name'                     => $plural,
 			'singular_name'            => $singular,
@@ -91,7 +92,9 @@ class PostType extends Base {
 			}
 		}
 
+		// https://core.trac.wordpress.org/browser/tags/6.0/src/wp-admin/edit-form-advanced.php#L219
 		add_filter( 'post_updated_messages', array( $this, 'custom_messages' ) );
+		// https://core.trac.wordpress.org/browser/tags/6.0/src/wp-admin/edit.php#L394
 		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_custom_messages' ), 10, 2 );
 
 	}

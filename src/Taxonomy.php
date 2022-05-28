@@ -27,6 +27,7 @@ class Taxonomy extends Base {
 
 	public function labels( string $singular, string $plural ): self {
 
+		// https://developer.wordpress.org/reference/functions/get_taxonomy_labels/
 		$labels = array(
 			'name'                       => $plural,
 			'singular_name'              => $singular,
@@ -81,6 +82,7 @@ class Taxonomy extends Base {
 
 		register_taxonomy( $this->taxonomy, $this->object_type, $this->args );
 
+		// https://core.trac.wordpress.org/browser/tags/6.0/src/wp-admin/includes/edit-tag-messages.php#L49
 		add_filter( 'term_updated_messages', array( $this, 'custom_messages' ) );
 
 	}
