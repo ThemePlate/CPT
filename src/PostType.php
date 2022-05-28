@@ -17,7 +17,8 @@ class PostType extends Base {
 	public function __construct( string $post_type, array $args = array() ) {
 
 		$this->post_type = $post_type;
-		$this->args      = array_merge( $this->defaults, $args );
+
+		$this->initialize( $post_type, $args );
 
 	}
 

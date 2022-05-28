@@ -22,6 +22,53 @@ abstract class Base implements CommonInterface {
 	);
 
 
+	protected function initialize( string $type, array $args ): void {
+
+		$names = $this->parse( $type );
+
+		$this->defaults['rewrite']['slug'] = $names['slug'];
+
+		$this->args = array_replace_recursive( $this->defaults, $args );
+
+		$this->labels( $names['singular'], $names['plural'] );
+
+	}
+
+
+	protected function parse( string $name ): array {
+
+		$names = array();
+
+		$names['singular'] = ucwords( str_replace( [ '-', '_' ], ' ', $name ) );
+		$names['plural']   = $this->pluralize( $names['singular'] );
+		$names['slug']     = strtolower( str_replace( [' ', '_'], '-', $names['plural'] ) );
+
+		return $names;
+
+	}
+
+
+	protected function pluralize( string $single ): string {
+
+		$map = array(
+			'/(x|ss|sh|ch)$/i' => "$1es",
+			'/(a|u)s$/i'       => '$1ses',
+			'/y$/i'            => 'ies',
+			'/sis$/i'          => 'ses',
+			'/s$/i'            => 's',
+		);
+
+		foreach ( $map as $pattern => $replacement ) {
+			if ( preg_match( $pattern, $single ) ) {
+				return preg_replace( $pattern, $replacement, $single );
+			}
+		}
+
+		return $single . 's';
+
+	}
+
+
 	public function register(): void {
 
 		if ( did_action( 'init' ) ) {

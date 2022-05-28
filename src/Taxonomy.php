@@ -19,7 +19,8 @@ class Taxonomy extends Base {
 
 		$this->taxonomy    = $taxonomy;
 		$this->object_type = $object_type;
-		$this->args        = array_merge( $this->defaults, $args );
+
+		$this->initialize( $taxonomy, $args );
 
 	}
 
