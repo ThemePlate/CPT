@@ -35,6 +35,10 @@ class Taxonomy extends Base {
 			'all_items'                  => 'All ' . $plural,
 			'parent_item'                => 'Parent ' . $singular,
 			'parent_item_colon'          => 'Parent ' . $singular . ':',
+			'name_field_description'     => 'The name is how it appears on your site.',
+			'slug_field_description'     => 'The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.',
+			'parent_field_description'   => 'Assign a parent term to create a hierarchy. The term Jazz, for example, would be the parent of Bebop and Big Band.',
+			'desc_field_description'     => 'The description is not prominent by default; however, some themes may show it.',
 			'edit_item'                  => 'Edit ' . $singular,
 			'view_item'                  => 'View ' . $singular,
 			'update_item'                => 'Update ' . $singular,
@@ -45,12 +49,16 @@ class Taxonomy extends Base {
 			'choose_from_most_used'      => 'Choose from the most used ' . strtolower( $singular ),
 			'not_found'                  => 'No ' . strtolower( $plural ) . ' found.',
 			'no_terms'                   => 'No ' . strtolower( $plural ),
+			'filter_by_item'             => 'Filter by ' . strtolower( $singular ),
 			'items_list_navigation'      => $plural . ' list navigation',
 			'items_list'                 => $plural . ' list',
 			'most_used'                  => 'Most Used ' . $plural,
 			'back_to_items'              => '&larr; Back to ' . $plural,
+			'item_link'                  => $singular . ' Link',
+			'item_link_description'      => 'A link to a ' . strtolower( $singular ),
 			'menu_name'                  => $plural,
 			'name_admin_bar'             => $singular,
+			'archives'                   => 'All ' . $plural,
 		);
 
 		$this->args['labels'] = array_merge( $this->args['labels'], $labels );

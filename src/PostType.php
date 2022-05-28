@@ -55,6 +55,8 @@ class PostType extends Base {
 			'item_reverted_to_draft'   => $singular . ' reverted to draft.',
 			'item_scheduled'           => $singular . ' scheduled.',
 			'item_updated'             => $singular . ' updated.',
+			'item_link'                => $singular . ' Link',
+			'item_link_description'    => 'A link to a ' . strtolower( $singular ),
 			'menu_name'                => $plural,
 			'name_admin_bar'           => $singular,
 		);
