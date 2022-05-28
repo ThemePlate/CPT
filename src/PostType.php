@@ -105,7 +105,7 @@ class PostType extends Base {
 		$permalink = get_permalink();
 
 		if ( ! $permalink ) {
-			$permalink = '';
+			$permalink = ''; // @codeCoverageIgnore
 		}
 
 		$preview_post_link_html   = '';

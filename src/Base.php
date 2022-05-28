@@ -74,9 +74,11 @@ abstract class Base implements CommonInterface {
 		if ( did_action( 'init' ) ) {
 			$this->hook();
 		} else {
+			// @codeCoverageIgnoreStart
 			$priority = static::class === PostType::class ? 10 : 9;
 
 			add_action( 'init', array( $this, 'hook' ), $priority );
+			// @codeCoverageIgnoreEnd
 		}
 
 	}

@@ -10,6 +10,8 @@ use ThemePlate\CPT\PostType;
 use WP_UnitTestCase;
 
 class PostTypeTest extends WP_UnitTestCase {
+	use TestProvider;
+
 	public function test_register(): void {
 		$config = array(
 			'name'     => 'portfolio',
@@ -54,23 +56,8 @@ class PostTypeTest extends WP_UnitTestCase {
 		$this->assertTrue( true );
 	}
 
-	public function for_minimal_register(): array {
-		return array(
-			'with string ending "x"'   => array( 'fox', 'Fox', 'Foxes', 'foxes' ),
-			'with string ending "ss"'  => array( 'truss', 'Truss', 'Trusses', 'trusses' ),
-			'with string ending "sh"'  => array( 'dish', 'Dish', 'Dishes', 'dishes' ),
-			'with string ending "ch"'  => array( 'torch', 'Torch', 'Torches', 'torches' ),
-			'with string ending "as"'  => array( 'gas', 'Gas', 'Gases', 'gases' ),
-			'with string ending "us"'  => array( 'bus', 'Bus', 'Buses', 'buses' ),
-			'with string ending "y"'   => array( 'battery', 'Battery', 'Batteries', 'batteries' ),
-			'with string ending "sis"' => array( 'genesis', 'Genesis', 'Geneses', 'geneses' ),
-			'with string ending "s"'   => array( 'lens', 'Lens', 'Lens', 'lens' ),
-			'with string ending !"s"'  => array( 'test', 'Tests', 'Tests', 'tests' ),
-		);
-	}
-
 	/**
-	 * @dataProvider for_minimal_register
+	 * @dataProvider for_name_parsing
 	 */
 	public function test_minimal_register( string $name, string $singular, string $plural, string $slug ): void {
 		( new PostType( $name ) )->register();
@@ -79,5 +66,40 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$this->assertSame( $plural, $type->label );
 		$this->assertSame( $slug, $type->rewrite['slug'] );
+	}
+
+	public function test_for_messages_filter(): void {
+		$post_type = 'test';
+
+		( new PostType( $post_type ) )->register();
+		global $post, $post_type_object;
+
+		$post             = get_post( $this->factory()->post->create( compact( 'post_type' ) ) );
+		$post_type_object = get_post_type_object( $post_type );
+		$output           = apply_filters( 'post_updated_messages', array() );
+
+		$this->assertArrayHasKey( $post_type, $output );
+	}
+
+	public function test_for_bulk_messages_filter(): void {
+		$post_type = 'test';
+
+		( new PostType( $post_type ) )->register();
+		global $post, $post_type_object;
+
+		$post             = get_post( $this->factory()->post->create( compact( 'post_type' ) ) );
+		$post_type_object = get_post_type_object( $post_type );
+		$bulk_counts      = array(
+			'updated'   => 0,
+			'locked'    => 0,
+			'deleted'   => 0,
+			'trashed'   => 0,
+			'untrashed' => 0,
+		);
+
+		$output = apply_filters( 'bulk_post_updated_messages', array(), $bulk_counts );
+
+		$this->assertArrayHasKey( $post_type, $output );
+		$this->assertSame( array_keys( $bulk_counts ), array_keys( $output[ $post_type ] ) );
 	}
 }

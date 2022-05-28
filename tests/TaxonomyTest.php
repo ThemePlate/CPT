@@ -10,6 +10,8 @@ use ThemePlate\CPT\Taxonomy;
 use WP_UnitTestCase;
 
 class TaxonomyTest extends WP_UnitTestCase {
+	use TestProvider;
+
 	public function test_register(): void {
 		$config = array(
 			'name'     => 'classification',
@@ -43,5 +45,17 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$tax = get_taxonomy( 'test' );
 
 		$this->assertArrayHasKey( 'this', array_fill_keys( $tax->object_type, '' ) );
+	}
+
+	/**
+	 * @dataProvider for_name_parsing
+	 */
+	public function test_minimal_register( string $name, string $singular, string $plural, string $slug ): void {
+		( new Taxonomy( $name ) )->register();
+
+		$tax = get_taxonomy( $name );
+
+		$this->assertSame( $plural, $tax->label );
+		$this->assertSame( $slug, $tax->rewrite['slug'] );
 	}
 }
