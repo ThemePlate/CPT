@@ -74,9 +74,11 @@ class PostTypeTest extends WP_UnitTestCase {
 		( new PostType( $post_type ) )->register();
 		global $post, $post_type_object;
 
+		// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 		$post             = get_post( $this->factory()->post->create( compact( 'post_type' ) ) );
 		$post_type_object = get_post_type_object( $post_type );
 		$output           = apply_filters( 'post_updated_messages', array() );
+		// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		$this->assertArrayHasKey( $post_type, $output );
 	}
@@ -87,6 +89,7 @@ class PostTypeTest extends WP_UnitTestCase {
 		( new PostType( $post_type ) )->register();
 		global $post, $post_type_object;
 
+		// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 		$post             = get_post( $this->factory()->post->create( compact( 'post_type' ) ) );
 		$post_type_object = get_post_type_object( $post_type );
 		$bulk_counts      = array(
@@ -96,6 +99,7 @@ class PostTypeTest extends WP_UnitTestCase {
 			'trashed'   => 0,
 			'untrashed' => 0,
 		);
+		// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		$output = apply_filters( 'bulk_post_updated_messages', array(), $bulk_counts );
 

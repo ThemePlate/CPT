@@ -19,8 +19,7 @@
 		"sort-packages": true
 	},
 	"require": {
-		"php": "^7.4|^8.0",
-		"themeplate/core": "*"
+		"php": "^7.4|^8.0"
 	},
 	"require-dev": {
 		"themeplate/tester": "^1.3"

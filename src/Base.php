@@ -39,9 +39,9 @@ abstract class Base implements CommonInterface {
 
 		$names = array();
 
-		$names['singular'] = ucwords( str_replace( [ '-', '_' ], ' ', $name ) );
+		$names['singular'] = ucwords( str_replace( array( '-', '_' ), ' ', $name ) );
 		$names['plural']   = $this->pluralize( $names['singular'] );
-		$names['slug']     = strtolower( str_replace( [' ', '_'], '-', $names['plural'] ) );
+		$names['slug']     = strtolower( str_replace( array( ' ', '_' ), '-', $names['plural'] ) );
 
 		return $names;
 
@@ -51,7 +51,7 @@ abstract class Base implements CommonInterface {
 	protected function pluralize( string $single ): string {
 
 		$map = array(
-			'/(x|ss|sh|ch)$/i' => "$1es",
+			'/(x|ss|sh|ch)$/i' => '$1es',
 			'/(a|u)s$/i'       => '$1ses',
 			'/y$/i'            => 'ies',
 			'/sis$/i'          => 'ses',
