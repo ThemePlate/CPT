@@ -1,20 +1,20 @@
 {
-    "name": "themeplate/cpt",
-    "description" : "ThemePlate custom post types and taxonomies",
-    "license": "GPL-3.0-only",
-    "authors": [
-        {
-            "name": "Gene Alyson Fortunado Torcende",
-            "email": "genealyson.torcende@gmail.com"
-        }
-    ],
-    "require": {
+	"name": "themeplate/cpt",
+	"description": "ThemePlate custom post types and taxonomies",
+	"license": "GPL-3.0-only",
+	"authors": [
+		{
+			"name": "Gene Alyson Fortunado Torcende",
+			"email": "genealyson.torcende@gmail.com"
+		}
+	],
+	"require": {
 		"php": ">=5.6.0",
-    	"themeplate/core": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "ThemePlate\\CPT\\": ""
-        }
-    }
+		"themeplate/core": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"ThemePlate\\CPT\\": ""
+		}
+	}
 }
