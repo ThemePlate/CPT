@@ -64,6 +64,7 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $name );
 
+		$this->assertSame( $singular, $type->labels->singular_name );
 		$this->assertSame( $plural, $type->label );
 		$this->assertSame( $slug, $type->rewrite['slug'] );
 	}

@@ -18,7 +18,7 @@ trait TestProvider {
 			'with string ending "y"'   => array( 'battery', 'Battery', 'Batteries', 'batteries' ),
 			'with string ending "sis"' => array( 'genesis', 'Genesis', 'Geneses', 'geneses' ),
 			'with string ending "s"'   => array( 'lens', 'Lens', 'Lens', 'lens' ),
-			'with string ending !"s"'  => array( 'test', 'Tests', 'Tests', 'tests' ),
+			'with string ending !"s"'  => array( 'test', 'Test', 'Tests', 'tests' ),
 		);
 	}
 }

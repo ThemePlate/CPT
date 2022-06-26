@@ -55,6 +55,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$tax = get_taxonomy( $name );
 
+		$this->assertSame( $singular, $tax->labels->singular_name );
 		$this->assertSame( $plural, $tax->label );
 		$this->assertSame( $slug, $tax->rewrite['slug'] );
 	}
