@@ -90,12 +90,6 @@ class PostType extends Base {
 
 		register_post_type( $this->post_type, $this->args );
 
-		if ( ! empty( $this->args['taxonomies'] ) ) {
-			foreach ( $this->args['taxonomies'] as $taxonomy ) {
-				register_taxonomy_for_object_type( $taxonomy, $this->post_type );
-			}
-		}
-
 		// https://core.trac.wordpress.org/browser/tags/6.0/src/wp-admin/edit-form-advanced.php#L219
 		add_filter( 'post_updated_messages', array( $this, 'custom_messages' ) );
 		// https://core.trac.wordpress.org/browser/tags/6.0/src/wp-admin/edit.php#L394
