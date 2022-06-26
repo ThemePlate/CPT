@@ -69,6 +69,39 @@ class PostTypeTest extends WP_UnitTestCase {
 		$this->assertSame( $slug, $type->rewrite['slug'] );
 	}
 
+	public function test_slug_applied_is_from_parsed_name(): void {
+		$name   = 'test';
+		$expect = 'tests';
+
+		( new PostType( $name ) )->register();
+
+		$type = get_post_type_object( $name );
+
+		$this->assertSame( $expect, $type->rewrite['slug'] );
+	}
+
+	public function test_slug_applied_is_from_plural_label(): void {
+		$name = 'test';
+
+		( new PostType( $name ) )->labels( 'Want', 'Wants' )->register();
+
+		$type = get_post_type_object( $name );
+
+		$this->assertSame( strtolower( $type->label ), $type->rewrite['slug'] );
+	}
+
+	public function test_slug_applied_is_from_custom_arg(): void {
+		$name = 'test';
+		$args = array( 'rewrite' => array( 'slug' => 'custom' ) );
+
+		( new PostType( $name, $args ) )->labels( 'Want', 'Wants' )->register();
+
+		$type = get_post_type_object( $name );
+
+		$this->assertNotSame( strtolower( $type->label ), $type->rewrite['slug'] );
+		$this->assertSame( $args['rewrite']['slug'], $type->rewrite['slug'] );
+	}
+
 	public function test_for_messages_filter(): void {
 		$post_type = 'test';
 

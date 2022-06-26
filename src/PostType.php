@@ -64,6 +64,10 @@ class PostType extends Base {
 
 		$this->args['labels'] = array_merge( $this->args['labels'], $labels );
 
+		if ( $this->defaults['rewrite']['slug'] === $this->args['rewrite']['slug'] ) {
+			$this->args['rewrite']['slug'] = $this->slugify( $plural );
+		}
+
 		return $this;
 
 	}

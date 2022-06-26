@@ -41,7 +41,7 @@ abstract class Base implements CommonInterface {
 
 		$names['singular'] = ucwords( str_replace( array( '-', '_' ), ' ', $name ) );
 		$names['plural']   = $this->pluralize( $names['singular'] );
-		$names['slug']     = strtolower( str_replace( array( ' ', '_' ), '-', $names['plural'] ) );
+		$names['slug']     = $this->slugify( $names['plural'] );
 
 		return $names;
 
@@ -65,6 +65,13 @@ abstract class Base implements CommonInterface {
 		}
 
 		return $single . 's';
+
+	}
+
+
+	protected function slugify( string $name ): string {
+
+		return strtolower( str_replace( array( ' ', '_' ), '-', $name ) );
 
 	}
 

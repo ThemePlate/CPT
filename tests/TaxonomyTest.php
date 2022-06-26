@@ -60,6 +60,39 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$this->assertSame( $slug, $tax->rewrite['slug'] );
 	}
 
+	public function test_slug_applied_is_from_parsed_name(): void {
+		$name   = 'test';
+		$expect = 'tests';
+
+		( new Taxonomy( $name ) )->register();
+
+		$type = get_taxonomy( $name );
+
+		$this->assertSame( $expect, $type->rewrite['slug'] );
+	}
+
+	public function test_slug_applied_is_from_plural_label(): void {
+		$name = 'test';
+
+		( new Taxonomy( $name ) )->labels( 'Want', 'Wants' )->register();
+
+		$type = get_taxonomy( $name );
+
+		$this->assertSame( strtolower( $type->label ), $type->rewrite['slug'] );
+	}
+
+	public function test_slug_applied_is_from_custom_arg(): void {
+		$name = 'test';
+		$args = array( 'rewrite' => array( 'slug' => 'custom' ) );
+
+		( new Taxonomy( $name, array(), $args ) )->labels( 'Want', 'Wants' )->register();
+
+		$type = get_taxonomy( $name );
+
+		$this->assertNotSame( strtolower( $type->label ), $type->rewrite['slug'] );
+		$this->assertSame( $args['rewrite']['slug'], $type->rewrite['slug'] );
+	}
+
 	public function test_for_messages_filter(): void {
 		$taxonomy = 'test';
 
