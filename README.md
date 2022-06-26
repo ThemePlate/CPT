@@ -15,8 +15,8 @@ use ThemePlate\CPT\Taxonomy;
 ```php
 /** https://developer.wordpress.org/reference/functions/register_post_type/#parameters */
 $args   = array(
-	'supports'   => array( 'title', 'editor', 'thumbnail' ),
-	'taxonomies' => array( 'job' ),
+	'has_archive' => true,
+	'supports'    => array( 'title', 'editor', 'thumbnail' ),
 );
 $person = new PostType( 'person', $args );
 
@@ -30,7 +30,7 @@ $args = array(
 	'hierarchical' => true,
 	'default_term' => 'Unknown',
 );
-$job  = new Taxonomy( 'job', array( 'person' ), $args );
+$job  = new Taxonomy( 'job', $args );
 
 // Custom singular and plural
 $job->labels( 'Job Title', 'Job Titles' );

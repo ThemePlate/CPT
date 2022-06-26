@@ -17,13 +17,12 @@ class TaxonomyTest extends WP_UnitTestCase {
 			'name'     => 'classification',
 			'plural'   => 'Classifications',
 			'singular' => 'Classification',
-			'type'     => 'post',
 			'args'     => array(
 				'hierarchical' => true,
 			),
 		);
 
-		$tax = new Taxonomy( $config['name'], array( $config['type'] ), $config['args'] );
+		$tax = new Taxonomy( $config['name'], $config['args'] );
 
 		$tax->labels( $config['singular'], $config['plural'] );
 		$tax->register();
@@ -85,7 +84,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$name = 'test';
 		$args = array( 'rewrite' => array( 'slug' => 'custom' ) );
 
-		( new Taxonomy( $name, array(), $args ) )->labels( 'Want', 'Wants' )->register();
+		( new Taxonomy( $name, $args ) )->labels( 'Want', 'Wants' )->register();
 
 		$type = get_taxonomy( $name );
 

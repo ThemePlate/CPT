@@ -12,13 +12,12 @@ namespace ThemePlate\CPT;
 class Taxonomy extends Base {
 
 	protected string $taxonomy;
-	protected array $object_type;
+	protected array $object_type = array();
 
 
-	public function __construct( string $taxonomy, array $object_type = array(), array $args = array() ) {
+	public function __construct( string $taxonomy, array $args = array() ) {
 
-		$this->taxonomy    = $taxonomy;
-		$this->object_type = $object_type;
+		$this->taxonomy = $taxonomy;
 
 		$this->initialize( $taxonomy, $args );
 
