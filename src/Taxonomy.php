@@ -61,11 +61,7 @@ class Taxonomy extends Base {
 			'archives'                   => 'All ' . $plural,
 		);
 
-		$this->args['labels'] = array_merge( $this->args['labels'], $labels );
-
-		if ( $this->defaults['rewrite']['slug'] === $this->args['rewrite']['slug'] ) {
-			$this->args['rewrite']['slug'] = $this->slugify( $plural );
-		}
+		$this->apply( $labels, $plural );
 
 		return $this;
 

@@ -92,6 +92,17 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$this->assertSame( $args['rewrite']['slug'], $type->rewrite['slug'] );
 	}
 
+	public function test_rewrite_if_non_public(): void {
+		$name = 'test';
+		$args = array( 'public' => false );
+
+		( new Taxonomy( $name, $args ) )->labels( 'Want', 'Wants' )->register();
+
+		$type = get_taxonomy( $name );
+
+		$this->assertFalse( $type->rewrite );
+	}
+
 	public function test_for_messages_filter(): void {
 		$taxonomy = 'test';
 

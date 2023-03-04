@@ -62,11 +62,7 @@ class PostType extends Base {
 			'name_admin_bar'           => $singular,
 		);
 
-		$this->args['labels'] = array_merge( $this->args['labels'], $labels );
-
-		if ( $this->defaults['rewrite']['slug'] === $this->args['rewrite']['slug'] ) {
-			$this->args['rewrite']['slug'] = $this->slugify( $plural );
-		}
+		$this->apply( $labels, $plural );
 
 		return $this;
 
