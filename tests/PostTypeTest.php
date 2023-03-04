@@ -132,6 +132,25 @@ class PostTypeTest extends WP_UnitTestCase {
 		$this->assertFalse( $type->rewrite );
 	}
 
+	public function for_use_editor(): array {
+		return array(
+			'nothing set' => array( null, true ),
+			'set classic' => array( true, false ),
+			'force block' => array( false, true ),
+		);
+	}
+
+	/** @dataProvider for_use_editor */
+	public function test_use_editor( ?bool $classic_editor, bool $expect ): void {
+		$post_type = 'test';
+
+		$args = null === $classic_editor ? array() : compact( 'classic_editor' );
+
+		( new PostType( $post_type, $args ) )->register();
+
+		$this->assertSame( $expect, use_block_editor_for_post_type( $post_type ) );
+	}
+
 	public function test_for_messages_filter(): void {
 		$post_type = 'test';
 

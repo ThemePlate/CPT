@@ -12,6 +12,7 @@ namespace ThemePlate\CPT;
 class PostType extends Base {
 
 	protected string $post_type;
+	protected bool $classic_editor = false;
 
 
 	public function __construct( string $post_type, array $args = array() ) {
@@ -20,6 +21,12 @@ class PostType extends Base {
 
 		$this->defaults['menu_position'] = 6;
 		$this->defaults['has_archive']   = true;
+
+		if ( isset( $args['classic_editor'] ) ) {
+			$this->classic_editor = $args['classic_editor'];
+
+			unset( $args['classic_editor'] );
+		}
 
 		$this->initialize( $post_type, $args );
 
@@ -89,10 +96,23 @@ class PostType extends Base {
 
 		register_post_type( $this->post_type, $this->args );
 
+		// https://core.trac.wordpress.org/browser/tags/6.1/src/wp-includes/post.php#L8127
+		add_filter( 'use_block_editor_for_post_type', array( $this, 'use_editor' ), 10, 2 );
 		// https://core.trac.wordpress.org/browser/tags/6.0/src/wp-admin/edit-form-advanced.php#L219
 		add_filter( 'post_updated_messages', array( $this, 'custom_messages' ) );
 		// https://core.trac.wordpress.org/browser/tags/6.0/src/wp-admin/edit.php#L394
 		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_custom_messages' ), 10, 2 );
+
+	}
+
+
+	public function use_editor( bool $use_block_editor, string $post_type ): bool {
+
+		if ( $this->post_type === $post_type ) {
+			return ! $this->classic_editor;
+		}
+
+		return $use_block_editor;
 
 	}
 
