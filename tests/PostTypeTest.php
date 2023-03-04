@@ -47,6 +47,25 @@ class PostTypeTest extends WP_UnitTestCase {
 		}
 	}
 
+	public function test_defaults_applied(): void {
+		$name = 'test';
+		$type = new PostType( $name );
+
+		$type->register();
+
+		$object = get_post_type_object( $name );
+
+		foreach ( $type->defaults() as $key => $value ) {
+			$this->assertObjectHasAttribute( $key, $object );
+
+			if ( is_array( $value ) ) {
+				continue;
+			}
+
+			$this->assertSame( $value, $object->$key );
+		}
+	}
+
 	public function test_late_taxonomy_association(): void {
 		( new PostType( 'test' ) )->associate( 'this' )->register();
 

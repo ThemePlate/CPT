@@ -38,6 +38,25 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$this->assertFalse( $tax->rewrite['with_front'] );
 	}
 
+	public function test_defaults_applied(): void {
+		$name = 'test';
+		$tax  = new Taxonomy( $name );
+
+		$tax->register();
+
+		$object = get_taxonomy( $name );
+
+		foreach ( $tax->defaults() as $key => $value ) {
+			$this->assertObjectHasAttribute( $key, $object );
+
+			if ( is_array( $value ) ) {
+				continue;
+			}
+
+			$this->assertSame( $value, $object->$key );
+		}
+	}
+
 	public function test_late_post_type_association(): void {
 		( new Taxonomy( 'test' ) )->associate( 'this' )->register();
 

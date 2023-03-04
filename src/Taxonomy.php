@@ -19,6 +19,9 @@ class Taxonomy extends Base {
 
 		$this->taxonomy = $taxonomy;
 
+		$this->defaults['hierarchical']      = true;
+		$this->defaults['show_admin_column'] = true;
+
 		$this->initialize( $taxonomy, $args );
 
 	}

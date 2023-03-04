@@ -22,6 +22,13 @@ abstract class Base implements CommonInterface {
 	);
 
 
+	public function defaults(): array {
+
+		return $this->defaults;
+
+	}
+
+
 	protected function initialize( string $type, array $args ): void {
 
 		$names = $this->parse( $type );

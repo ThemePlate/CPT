@@ -18,6 +18,9 @@ class PostType extends Base {
 
 		$this->post_type = $post_type;
 
+		$this->defaults['menu_position'] = 6;
+		$this->defaults['has_archive']   = true;
+
 		$this->initialize( $post_type, $args );
 
 	}

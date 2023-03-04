@@ -8,6 +8,8 @@ namespace ThemePlate\CPT;
 
 interface CommonInterface {
 
+	public function defaults(): array;
+
 	public function labels( string $singular, string $plural ): self;
 
 	public function associate( string $identifier ): self;
