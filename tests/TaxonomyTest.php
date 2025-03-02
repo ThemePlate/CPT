@@ -47,7 +47,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$object = get_taxonomy( $name );
 
 		foreach ( $tax->defaults() as $key => $value ) {
-			$this->assertObjectHasAttribute( $key, $object );
+			$this->assertObjectHasProperty( $key, $object );
 
 			if ( is_array( $value ) ) {
 				continue;

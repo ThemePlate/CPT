@@ -56,7 +56,7 @@ class PostTypeTest extends WP_UnitTestCase {
 		$object = get_post_type_object( $name );
 
 		foreach ( $type->defaults() as $key => $value ) {
-			$this->assertObjectHasAttribute( $key, $object );
+			$this->assertObjectHasProperty( $key, $object );
 
 			if ( is_array( $value ) ) {
 				continue;
