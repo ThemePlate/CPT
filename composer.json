@@ -12,14 +12,15 @@
 	"prefer-stable": true,
 	"config": {
 		"allow-plugins": {
-			"dealerdirect/phpcodesniffer-composer-installer": true
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
 		},
 		"optimize-autoloader": true,
 		"preferred-install": "dist",
 		"sort-packages": true
 	},
 	"require": {
-		"php": "^7.4|^8.0"
+		"php": "^7.4|^8.2"
 	},
 	"require-dev": {
 		"themeplate/tester": "^2.0"
