@@ -72,7 +72,6 @@ class PostTypeTest extends WP_UnitTestCase {
 		$type = get_post_type_object( 'test' );
 
 		$this->assertArrayHasKey( 'this', array_fill_keys( $type->taxonomies, '' ) );
-		$this->assertTrue( true );
 	}
 
 	/**
