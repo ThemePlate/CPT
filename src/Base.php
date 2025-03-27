@@ -11,7 +11,8 @@ namespace ThemePlate\CPT;
 
 abstract class Base implements CommonInterface {
 
-	protected array $args;
+	protected array $args = array();
+
 	protected array $defaults = array(
 		'labels'       => array(),
 		'public'       => true,
@@ -29,19 +30,37 @@ abstract class Base implements CommonInterface {
 	}
 
 
+	public function public( bool $is_public ): self {
+
+		$this->args['public'] = $is_public;
+
+		return $this;
+
+	}
+
+
 	protected function initialize( string $type, array $args ): void {
 
 		$names = $this->parse( $type );
 
 		$this->defaults['rewrite']['slug'] = $names['slug'];
 
-		$this->args = array_replace_recursive( $this->defaults, $args );
+		$this->config( $args );
 
 		if ( isset( $args['public'] ) && ! $args['public'] ) {
 			$this->args['rewrite'] = false;
 		}
 
 		$this->labels( $names['singular'], $names['plural'] );
+
+	}
+
+
+	public function config( array $config ): self {
+
+		$this->args = array_replace_recursive( $this->defaults, $this->args, $config );
+
+		return $this;
 
 	}
 

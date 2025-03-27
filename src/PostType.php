@@ -9,7 +9,9 @@
 
 namespace ThemePlate\CPT;
 
-class PostType extends Base {
+use ThemePlate\CPT\Interfaces\PostTypeInterface;
+
+class PostType extends Base implements PostTypeInterface {
 
 	protected string $post_type;
 	protected bool $classic_editor = false;
@@ -29,6 +31,33 @@ class PostType extends Base {
 		}
 
 		$this->initialize( $post_type, $args );
+
+	}
+
+
+	public function position( int $position ): self {
+
+		$this->args['menu_position'] = $position;
+
+		return $this;
+
+	}
+
+
+	public function archive( bool $archive ): self {
+
+		$this->args['has_archive'] = $archive;
+
+		return $this;
+
+	}
+
+
+	public function classic( bool $classic ): self {
+
+		$this->classic_editor = $classic;
+
+		return $this;
 
 	}
 

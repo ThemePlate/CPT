@@ -9,7 +9,9 @@
 
 namespace ThemePlate\CPT;
 
-class Taxonomy extends Base {
+use ThemePlate\CPT\Interfaces\TaxonomyInterface;
+
+class Taxonomy extends Base implements TaxonomyInterface {
 
 	protected string $taxonomy;
 	protected array $object_type = array();
@@ -23,6 +25,23 @@ class Taxonomy extends Base {
 		$this->defaults['show_admin_column'] = true;
 
 		$this->initialize( $taxonomy, $args );
+
+	}
+
+
+	public function hierarchical( bool $hierarchical ): self {
+
+		$this->args['hierarchical'] = $hierarchical;
+
+		return $this;
+
+	}
+
+	public function column( bool $column ): self {
+
+		$this->args['show_admin_column'] = $column;
+
+		return $this;
 
 	}
 
