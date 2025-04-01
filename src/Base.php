@@ -30,6 +30,24 @@ abstract class Base implements CommonInterface {
 	}
 
 
+	public function description( string $description ): self {
+
+		$this->args['description'] = $description;
+
+		return $this;
+
+	}
+
+
+	public function hierarchical( bool $hierarchical ): self {
+
+		$this->args['hierarchical'] = $hierarchical;
+
+		return $this;
+
+	}
+
+
 	public function public( bool $is_public ): self {
 
 		$this->args['public'] = $is_public;

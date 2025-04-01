@@ -35,6 +35,33 @@ class PostType extends Base implements PostTypeInterface {
 	}
 
 
+	public function icon( string $icon ): self {
+
+		$this->args['menu_icon'] = $icon;
+
+		return $this;
+
+	}
+
+
+	public function supports( string ...$supports ): self {
+
+		$this->args['supports'] = $supports;
+
+		return $this;
+
+	}
+
+
+	public function capabilities( string ...$capabilities ): self {
+
+		$this->args['capability_type'] = $capabilities;
+
+		return $this;
+
+	}
+
+
 	public function position( int $position ): self {
 
 		$this->args['menu_position'] = $position;

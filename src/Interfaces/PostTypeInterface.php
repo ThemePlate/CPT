@@ -11,6 +11,12 @@ namespace ThemePlate\CPT\Interfaces;
 
 interface PostTypeInterface {
 
+	public function icon( string $icon ): self;
+
+	public function supports( string ...$supports ): self;
+
+	public function capabilities( string ...$capabilities ): self;
+
 	public function position( int $position ): self;
 
 	public function archive( bool $archive ): self;

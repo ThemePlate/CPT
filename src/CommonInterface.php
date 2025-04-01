@@ -12,6 +12,10 @@ interface CommonInterface {
 
 	public function config( array $config ): self;
 
+	public function description( string $description ): self;
+
+	public function hierarchical( bool $hierarchical ): self;
+
 	public function public( bool $is_public ): self;
 
 	public function labels( string $singular, string $plural ): self;
