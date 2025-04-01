@@ -127,9 +127,8 @@ class PostTypeTest extends WP_UnitTestCase {
 
 	public function test_rewrite_if_non_public(): void {
 		$name = 'test';
-		$args = array( 'public' => false );
 
-		( new PostType( $name, $args ) )->labels( 'Want', 'Wants' )->register();
+		( new PostType( $name ) )->public( false )->labels( 'Want', 'Wants' )->register();
 
 		$type = get_post_type_object( $name );
 

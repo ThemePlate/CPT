@@ -52,6 +52,10 @@ abstract class Base implements CommonInterface {
 
 		$this->args['public'] = $is_public;
 
+		if ( ! $is_public ) {
+			$this->args['rewrite'] = false;
+		}
+
 		return $this;
 
 	}
@@ -77,6 +81,10 @@ abstract class Base implements CommonInterface {
 	public function config( array $config ): self {
 
 		$this->args = array_replace_recursive( $this->defaults, $this->args, $config );
+
+		if ( isset( $config['public'] ) && ! $config['public'] ) {
+			$this->args['rewrite'] = false;
+		}
 
 		return $this;
 

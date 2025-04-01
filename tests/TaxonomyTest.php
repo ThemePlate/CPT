@@ -118,7 +118,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$name = 'test';
 		$args = array( 'public' => false );
 
-		( new Taxonomy( $name, $args ) )->labels( 'Want', 'Wants' )->register();
+		( new Taxonomy( $name ) )->config( $args )->labels( 'Want', 'Wants' )->register();
 
 		$type = get_taxonomy( $name );
 
