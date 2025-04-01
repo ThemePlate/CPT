@@ -14,6 +14,7 @@ use ThemePlate\CPT\Interfaces\PostTypeInterface;
 class PostType extends Base implements PostTypeInterface {
 
 	protected string $post_type;
+
 	protected bool $classic_editor = false;
 
 

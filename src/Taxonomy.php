@@ -14,6 +14,7 @@ use ThemePlate\CPT\Interfaces\TaxonomyInterface;
 class Taxonomy extends Base implements TaxonomyInterface {
 
 	protected string $taxonomy;
+
 	protected array $object_type = array();
 
 

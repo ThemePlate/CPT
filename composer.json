@@ -19,6 +19,12 @@
 		"preferred-install": "dist",
 		"sort-packages": true
 	},
+	"scripts": {
+		"analyse": "themeplate analyse",
+		"lint": "themeplate lint",
+		"fix": "themeplate fix",
+		"test": "themeplate test"
+	},
 	"require": {
 		"php": "^7.4|^8.2"
 	},
