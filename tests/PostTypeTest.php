@@ -22,13 +22,18 @@ class PostTypeTest extends WP_UnitTestCase {
 				'menu_position' => 5,
 				'menu_icon'     => 'dashicons-media-document',
 				'supports'      => array( 'title', 'editor', 'thumbnail' ),
+				'capabilities'  => array( 'story', 'stories' ),
 			),
 		);
 
-		$type = new PostType( $config['name'], $config['args'] );
-
-		$type->labels( $config['singular'], $config['plural'] );
-		$type->register();
+		( new PostType( $config['name'] ) )
+			->archive( $config['args']['has_archive'] )
+			->position( $config['args']['menu_position'] )
+			->icon( $config['args']['menu_icon'] )
+			->supports( ...$config['args']['supports'] )
+			->capabilities( ...$config['args']['capabilities'] )
+			->labels( $config['singular'], $config['plural'] )
+			->register();
 
 		$this->assertArrayHasKey( $config['name'], get_post_types() );
 
@@ -112,7 +117,7 @@ class PostTypeTest extends WP_UnitTestCase {
 		$name = 'test';
 		$args = array( 'rewrite' => array( 'slug' => 'custom' ) );
 
-		( new PostType( $name, $args ) )->labels( 'Want', 'Wants' )->register();
+		( new PostType( $name ) )->config( $args )->labels( 'Want', 'Wants' )->register();
 
 		$type = get_post_type_object( $name );
 
@@ -143,9 +148,13 @@ class PostTypeTest extends WP_UnitTestCase {
 	public function test_use_editor( ?bool $classic_editor, bool $expect ): void {
 		$post_type = 'test';
 
-		$args = null === $classic_editor ? array() : compact( 'classic_editor' );
+		$type = new PostType( $post_type );
 
-		( new PostType( $post_type, $args ) )->register();
+		if ( null !== $classic_editor ) {
+			$type->classic( $classic_editor );
+		}
+
+		$type->register();
 
 		$this->assertSame( $expect, use_block_editor_for_post_type( $post_type ) );
 	}

@@ -18,20 +18,23 @@ class TaxonomyTest extends WP_UnitTestCase {
 			'plural'   => 'Classifications',
 			'singular' => 'Classification',
 			'args'     => array(
+				'description'  => 'A classification',
 				'hierarchical' => true,
 			),
 		);
 
-		$tax = new Taxonomy( $config['name'], $config['args'] );
-
-		$tax->labels( $config['singular'], $config['plural'] );
-		$tax->register();
+		( new Taxonomy( $config['name'] ) )
+			->description( $config['args']['description'] )
+			->hierarchical( $config['args']['hierarchical'] )
+			->labels( $config['singular'], $config['plural'] )
+			->register();
 
 		$this->assertArrayHasKey( $config['name'], get_taxonomies() );
 
 		$tax = get_taxonomy( $config['name'] );
 
 		$this->assertSame( $config['plural'], $tax->label );
+		$this->assertSame( $config['args']['description'], $tax->description );
 		$this->assertSame( $config['args']['hierarchical'], $tax->hierarchical );
 		$this->assertTrue( $tax->public );
 		$this->assertTrue( $tax->show_in_rest );
@@ -103,7 +106,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$name = 'test';
 		$args = array( 'rewrite' => array( 'slug' => 'custom' ) );
 
-		( new Taxonomy( $name, $args ) )->labels( 'Want', 'Wants' )->register();
+		( new Taxonomy( $name ) )->config( $args )->labels( 'Want', 'Wants' )->register();
 
 		$type = get_taxonomy( $name );
 
