@@ -11,8 +11,10 @@ namespace ThemePlate\CPT;
 
 abstract class Base implements CommonInterface {
 
+	/** @var array<string, mixed> */
 	protected array $args = array();
 
+	/** @var array<string, mixed> */
 	protected array $defaults = array(
 		'labels'       => array(),
 		'public'       => true,
@@ -23,6 +25,7 @@ abstract class Base implements CommonInterface {
 	);
 
 
+	/** @return array<string, mixed> */
 	public function defaults(): array {
 
 		return $this->defaults;
@@ -61,6 +64,7 @@ abstract class Base implements CommonInterface {
 	}
 
 
+	/** @param array<string, mixed> $args */
 	protected function initialize( string $type, array $args ): void {
 
 		$names = $this->parse( $type );
@@ -78,6 +82,7 @@ abstract class Base implements CommonInterface {
 	}
 
 
+	/** @param array<string, mixed> $config */
 	public function config( array $config ): self {
 
 		$this->args = array_replace_recursive( $this->defaults, $this->args, $config );
@@ -91,6 +96,7 @@ abstract class Base implements CommonInterface {
 	}
 
 
+	/** @return array<string, string> */
 	protected function parse( string $name ): array {
 
 		$names = array();
@@ -136,6 +142,7 @@ abstract class Base implements CommonInterface {
 	}
 
 
+	/** @param array<string, string> $labels */
 	protected function apply( array $labels, string $plural ): void {
 
 		$this->args['labels'] = array_merge( $this->args['labels'], $labels );

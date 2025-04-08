@@ -162,6 +162,7 @@ class PostTypeTest extends WP_UnitTestCase {
 		$this->assertFalse( $type->rewrite );
 	}
 
+	/** @return array<string, array<int, null|bool>> */
 	public function for_use_editor(): array {
 		return array(
 			'nothing set' => array( null, true ),

@@ -18,6 +18,7 @@ class PostType extends Base implements PostTypeInterface {
 	protected bool $classic_editor = false;
 
 
+	/** @param array<string, mixed> $args */
 	public function __construct( string $post_type, array $args = array() ) {
 
 		$this->post_type = $post_type;
@@ -178,6 +179,10 @@ class PostType extends Base implements PostTypeInterface {
 	}
 
 
+	/**
+	 * @param array<string, array<int, string>> $messages
+	 * @return array<string, array<int, bool|string>>
+	 */
 	public function custom_messages( array $messages ): array {
 
 		global $post_type_object, $post;
@@ -240,6 +245,12 @@ class PostType extends Base implements PostTypeInterface {
 	}
 
 
+	/**
+	 * @param array<string, array<string, string>> $messages
+	 * @param array<string, int> $counts
+	 *
+	 * @return array<string, array<string, bool|string>>
+	 */
 	public function bulk_custom_messages( array $messages, array $counts ): array {
 
 		$name     = $this->post_type;

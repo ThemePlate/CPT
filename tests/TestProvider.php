@@ -7,6 +7,7 @@
 namespace Tests;
 
 trait TestProvider {
+	/** @return array<string, string[]> */
 	public function for_name_parsing(): array {
 		return array(
 			'with string ending "x"'   => array( 'fox', 'foxes', 'Fox', 'Foxes' ),

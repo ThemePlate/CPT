@@ -15,9 +15,11 @@ class Taxonomy extends Base implements TaxonomyInterface {
 
 	protected string $taxonomy;
 
+	/** @var string[] */
 	protected array $object_type = array();
 
 
+	/** @param array<string, mixed> $args */
 	public function __construct( string $taxonomy, array $args = array() ) {
 
 		$this->taxonomy = $taxonomy;
@@ -110,6 +112,10 @@ class Taxonomy extends Base implements TaxonomyInterface {
 	}
 
 
+	/**
+	 * @param array<string, string[]> $messages
+	 * @return array<string, string[]>
+	 */
 	public function custom_messages( array $messages ): array {
 
 		$singular = $this->args['labels']['singular_name'];

@@ -8,8 +8,10 @@ namespace ThemePlate\CPT;
 
 interface CommonInterface {
 
+	/** @return array<string, mixed> */
 	public function defaults(): array;
 
+	/** @param array<string, mixed> $config */
 	public function config( array $config ): self;
 
 	public function description( string $description ): self;
@@ -26,6 +28,10 @@ interface CommonInterface {
 
 	public function hook(): void;
 
+	/**
+	 * @param array<string, string[]> $messages
+	 * @return array<string, string[]>
+	 */
 	public function custom_messages( array $messages ): array;
 
 }
