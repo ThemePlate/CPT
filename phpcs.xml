@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
-<ruleset name="ThemePlate">
+<ruleset
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/PHPCSStandards/PHP_CodeSniffer/master/phpcs.xsd"
+	name="ThemePlate"
+>
+	<!-- Set a description for this ruleset. -->
 	<description>The code standard rules for ThemePlate.</description>
 
 	<!-- Strip the file paths down to the relevant bit. -->
-	<arg name="basepath" value="./" />
+	<arg name="basepath" value="." />
 	<!-- A comma separated list of file extensions to check. -->
 	<arg name="extensions" value="php" />
 	<!-- Show sniff and progress. -->
@@ -16,17 +21,21 @@
 	<!-- What to scan. -->
 	<file>.</file>
 	<!-- Exclude the Composer Vendor directory. -->
-	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>vendor</exclude-pattern>
+	<!-- Exclude the Tester Cache directory. -->
+	<exclude-pattern>.cache</exclude-pattern>
+	<!-- Exclude the dependencies directory. -->
+	<exclude-pattern>dependencies</exclude-pattern>
 
 	<!-- Include PHP cross-version compatibility. -->
 	<config name="testVersion" value="7.4-" />
 	<!-- Include minimum supported WP version. -->
 	<config name="minimum_supported_wp_version" value="5.9" />
 
+	<!-- Include PHP Compatibility Coding Standard. -->
+	<rule ref="PHPCompatibilityWP" />
 	<!-- Include the WordPress ruleset. -->
 	<rule ref="WordPress-Extra" />
-	<!-- Include PHP Compatibility Coding Standard for WordPress. -->
-	<rule ref="PHPCompatibilityWP" />
 
 	<!-- Custom Rules -->
 	<rule ref="WordPress.Files">
