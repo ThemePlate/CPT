@@ -9,16 +9,16 @@ namespace Tests;
 trait TestProvider {
 	public function for_name_parsing(): array {
 		return array(
-			'with string ending "x"'   => array( 'fox', 'Fox', 'Foxes', 'foxes' ),
-			'with string ending "ss"'  => array( 'truss', 'Truss', 'Trusses', 'trusses' ),
-			'with string ending "sh"'  => array( 'dish', 'Dish', 'Dishes', 'dishes' ),
-			'with string ending "ch"'  => array( 'torch', 'Torch', 'Torches', 'torches' ),
-			'with string ending "as"'  => array( 'gas', 'Gas', 'Gases', 'gases' ),
-			'with string ending "us"'  => array( 'bus', 'Bus', 'Buses', 'buses' ),
-			'with string ending "y"'   => array( 'battery', 'Battery', 'Batteries', 'batteries' ),
-			'with string ending "sis"' => array( 'genesis', 'Genesis', 'Geneses', 'geneses' ),
-			'with string ending "s"'   => array( 'lens', 'Lens', 'Lens', 'lens' ),
-			'with string ending !"s"'  => array( 'test', 'Test', 'Tests', 'tests' ),
+			'with string ending "x"'   => array( 'fox', 'foxes', 'Fox', 'Foxes' ),
+			'with string ending "ss"'  => array( 'truss', 'trusses', 'Truss', 'Trusses' ),
+			'with string ending "sh"'  => array( 'dish', 'dishes', 'Dish', 'Dishes' ),
+			'with string ending "ch"'  => array( 'torch', 'torches', 'Torch', 'Torches' ),
+			'with string ending "as"'  => array( 'gas', 'gases', 'Gas', 'Gases' ),
+			'with string ending "us"'  => array( 'bus', 'buses', 'Bus', 'Buses' ),
+			'with string ending "y"'   => array( 'battery', 'batteries', 'Battery', 'Batteries' ),
+			'with string ending "sis"' => array( 'genesis', 'geneses', 'Genesis', 'Geneses' ),
+			'with string ending "s"'   => array( 'lens', 'lens', 'Lens', 'Lens' ),
+			'with string ending !"s"'  => array( 'test', 'tests', 'Test', 'Tests' ),
 		);
 	}
 }

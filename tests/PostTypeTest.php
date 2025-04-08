@@ -82,7 +82,7 @@ class PostTypeTest extends WP_UnitTestCase {
 	/**
 	 * @dataProvider for_name_parsing
 	 */
-	public function test_minimal_register( string $name, string $singular, string $plural, string $slug ): void {
+	public function test_minimal_register( string $name, string $slug, string $singular, string $plural ): void {
 		( new PostType( $name ) )->register();
 
 		$type = get_post_type_object( $name );
@@ -95,7 +95,7 @@ class PostTypeTest extends WP_UnitTestCase {
 	/**
 	 * @dataProvider for_name_parsing
 	 */
-	public function test_pluralized_capabilities( string $name, string $singular, string $plural, string $slug ): void {
+	public function test_pluralized_capabilities( string $name, string $slug ): void {
 		( new PostType( $name ) )->capabilities( $name )->register();
 
 		$type = get_post_type_object( $name );

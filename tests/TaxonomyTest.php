@@ -71,7 +71,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 	/**
 	 * @dataProvider for_name_parsing
 	 */
-	public function test_minimal_register( string $name, string $singular, string $plural, string $slug ): void {
+	public function test_minimal_register( string $name, string $slug, string $singular, string $plural ): void {
 		( new Taxonomy( $name ) )->register();
 
 		$tax = get_taxonomy( $name );
