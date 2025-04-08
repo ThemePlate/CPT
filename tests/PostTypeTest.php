@@ -92,6 +92,18 @@ class PostTypeTest extends WP_UnitTestCase {
 		$this->assertSame( $slug, $type->rewrite['slug'] );
 	}
 
+	/**
+	 * @dataProvider for_name_parsing
+	 */
+	public function test_pluralized_capabilities( string $name, string $singular, string $plural, string $slug ): void {
+		( new PostType( $name ) )->capabilities( $name )->register();
+
+		$type = get_post_type_object( $name );
+
+		$this->assertSame( 'edit_' . $name, $type->cap->edit_post );
+		$this->assertSame( 'edit_' . $slug, $type->cap->edit_posts );
+	}
+
 	public function test_slug_applied_is_from_parsed_name(): void {
 		$name   = 'test';
 		$expect = 'tests';

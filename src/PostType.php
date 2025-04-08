@@ -56,6 +56,10 @@ class PostType extends Base implements PostTypeInterface {
 
 	public function capabilities( string ...$capabilities ): self {
 
+		if ( 1 === count( $capabilities ) ) {
+			$capabilities = array( $capabilities[0], $this->pluralize( $capabilities[0] ) );
+		}
+
 		$this->args['capability_type'] = $capabilities;
 
 		return $this;
