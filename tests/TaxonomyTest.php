@@ -33,11 +33,13 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$tax = get_taxonomy( $config['name'] );
 
+		$this->assertNotFalse( $tax );
 		$this->assertSame( $config['plural'], $tax->label );
 		$this->assertSame( $config['args']['description'], $tax->description );
 		$this->assertSame( $config['args']['hierarchical'], $tax->hierarchical );
 		$this->assertTrue( $tax->public );
 		$this->assertTrue( $tax->show_in_rest );
+		$this->assertIsArray( $tax->rewrite );
 		$this->assertFalse( $tax->rewrite['with_front'] );
 	}
 
@@ -48,6 +50,8 @@ class TaxonomyTest extends WP_UnitTestCase {
 		$tax->register();
 
 		$object = get_taxonomy( $name );
+
+		$this->assertNotFalse( $object );
 
 		foreach ( $tax->defaults() as $key => $value ) {
 			$this->assertObjectHasProperty( $key, $object );
@@ -65,6 +69,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$tax = get_taxonomy( 'test' );
 
+		$this->assertNotFalse( $tax );
 		$this->assertArrayHasKey( 'this', array_fill_keys( $tax->object_type, '' ) );
 	}
 
@@ -76,8 +81,10 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$tax = get_taxonomy( $name );
 
+		$this->assertNotFalse( $tax );
 		$this->assertSame( $singular, $tax->labels->singular_name );
 		$this->assertSame( $plural, $tax->label );
+		$this->assertIsArray( $tax->rewrite );
 		$this->assertSame( $slug, $tax->rewrite['slug'] );
 	}
 
@@ -89,6 +96,8 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$type = get_taxonomy( $name );
 
+		$this->assertNotFalse( $type );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertSame( $expect, $type->rewrite['slug'] );
 	}
 
@@ -99,6 +108,8 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$type = get_taxonomy( $name );
 
+		$this->assertNotFalse( $type );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertSame( strtolower( $type->label ), $type->rewrite['slug'] );
 	}
 
@@ -110,6 +121,8 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$type = get_taxonomy( $name );
 
+		$this->assertNotFalse( $type );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertNotSame( strtolower( $type->label ), $type->rewrite['slug'] );
 		$this->assertSame( $args['rewrite']['slug'], $type->rewrite['slug'] );
 	}
@@ -122,6 +135,7 @@ class TaxonomyTest extends WP_UnitTestCase {
 
 		$type = get_taxonomy( $name );
 
+		$this->assertNotFalse( $type );
 		$this->assertFalse( $type->rewrite );
 	}
 

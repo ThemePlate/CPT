@@ -115,8 +115,12 @@ abstract class Base implements CommonInterface {
 		);
 
 		foreach ( $map as $pattern => $replacement ) {
-			if ( preg_match( $pattern, $single ) ) {
-				return preg_replace( $pattern, $replacement, $single );
+			if ( 1 === preg_match( $pattern, $single ) ) {
+				$replaced = preg_replace( $pattern, $replacement, $single );
+
+				if ( null !== $replaced ) {
+					return $replaced;
+				}
 			}
 		}
 

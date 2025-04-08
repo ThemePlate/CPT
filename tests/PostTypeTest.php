@@ -39,12 +39,14 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $config['name'] );
 
+		$this->assertNotNull( $type );
 		$this->assertSame( $config['plural'], $type->label );
 		$this->assertSame( $config['args']['has_archive'], $type->has_archive );
 		$this->assertSame( $config['args']['menu_position'], $type->menu_position );
 		$this->assertSame( $config['args']['menu_icon'], $type->menu_icon );
 		$this->assertTrue( $type->public );
 		$this->assertTrue( $type->show_in_rest );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertFalse( $type->rewrite['with_front'] );
 
 		foreach ( $config['args']['supports'] as $feature ) {
@@ -59,6 +61,8 @@ class PostTypeTest extends WP_UnitTestCase {
 		$type->register();
 
 		$object = get_post_type_object( $name );
+
+		$this->assertNotNull( $object );
 
 		foreach ( $type->defaults() as $key => $value ) {
 			$this->assertObjectHasProperty( $key, $object );
@@ -76,6 +80,7 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( 'test' );
 
+		$this->assertNotNull( $type );
 		$this->assertArrayHasKey( 'this', array_fill_keys( $type->taxonomies, '' ) );
 	}
 
@@ -87,8 +92,10 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $name );
 
+		$this->assertNotNull( $type );
 		$this->assertSame( $singular, $type->labels->singular_name );
 		$this->assertSame( $plural, $type->label );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertSame( $slug, $type->rewrite['slug'] );
 	}
 
@@ -100,6 +107,7 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $name );
 
+		$this->assertNotNull( $type );
 		$this->assertSame( 'edit_' . $name, $type->cap->edit_post );
 		$this->assertSame( 'edit_' . $slug, $type->cap->edit_posts );
 	}
@@ -112,6 +120,8 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $name );
 
+		$this->assertNotNull( $type );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertSame( $expect, $type->rewrite['slug'] );
 	}
 
@@ -122,6 +132,8 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $name );
 
+		$this->assertNotNull( $type );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertSame( strtolower( $type->label ), $type->rewrite['slug'] );
 	}
 
@@ -133,6 +145,8 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $name );
 
+		$this->assertNotNull( $type );
+		$this->assertIsArray( $type->rewrite );
 		$this->assertNotSame( strtolower( $type->label ), $type->rewrite['slug'] );
 		$this->assertSame( $args['rewrite']['slug'], $type->rewrite['slug'] );
 	}
@@ -144,6 +158,7 @@ class PostTypeTest extends WP_UnitTestCase {
 
 		$type = get_post_type_object( $name );
 
+		$this->assertNotNull( $type );
 		$this->assertFalse( $type->rewrite );
 	}
 
@@ -176,8 +191,11 @@ class PostTypeTest extends WP_UnitTestCase {
 		( new PostType( $post_type ) )->register();
 		global $post, $post_type_object;
 
+		$type = $this->factory()->post->create( compact( 'post_type' ) );
+
+		$this->assertIsInt( $type );
 		// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
-		$post             = get_post( $this->factory()->post->create( compact( 'post_type' ) ) );
+		$post             = get_post( $type );
 		$post_type_object = get_post_type_object( $post_type );
 		$output           = apply_filters( 'post_updated_messages', array() );
 		// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -191,8 +209,11 @@ class PostTypeTest extends WP_UnitTestCase {
 		( new PostType( $post_type ) )->register();
 		global $post, $post_type_object;
 
+		$type = $this->factory()->post->create( compact( 'post_type' ) );
+
+		$this->assertIsInt( $type );
 		// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
-		$post             = get_post( $this->factory()->post->create( compact( 'post_type' ) ) );
+		$post             = get_post( $type );
 		$post_type_object = get_post_type_object( $post_type );
 		$bulk_counts      = array(
 			'updated'   => 0,

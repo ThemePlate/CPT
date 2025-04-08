@@ -198,11 +198,13 @@ class PostType extends Base implements PostTypeInterface {
 		$viewable                 = is_post_type_viewable( $post_type_object );
 
 		if ( $viewable ) {
-			$preview_post_link_html = sprintf(
-				' <a target="_blank" href="%1$s">%2$s</a>',
-				esc_url( $preview_url ),
-				'Preview ' . $singular
-			);
+			if ( null !== $preview_url ) {
+				$preview_post_link_html = sprintf(
+					' <a target="_blank" href="%1$s">%2$s</a>',
+					esc_url( $preview_url ),
+					'Preview ' . $singular
+				);
+			}
 
 			$scheduled_post_link_html = sprintf(
 				' <a target="_blank" href="%1$s">%2$s</a>',
